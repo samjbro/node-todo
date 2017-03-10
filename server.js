@@ -33,6 +33,11 @@ app.post("/todos/update", (req,res) => {
   res.end();
 });
 
+app.post("/todos/delete", (req,res) => {
+  client.hdel("todos", req.body.id);
+  res.end();
+});
+
 app.listen(2000);
 
 function writeJSON(res, data) {
