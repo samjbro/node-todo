@@ -52,7 +52,11 @@ function createTodo(todo) {
 }
 
 function updateTodo(todo) {
-  console.log("update me!");
+  let id = todo.attr("id");
+  let description = todo.find(".description").val();
+  $.post("todos/update", { id: id, description: description }, data => {
+    flashSuccess(todo);
+  });
 }
 
 function deleteTodo(todo) {

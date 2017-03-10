@@ -28,6 +28,11 @@ app.post("/todos/create", (req,res) => {
   writeJSON(res, { id: id });
 });
 
+app.post("/todos/update", (req,res) => {
+  client.hset("todos", req.body.id, req.body.description);
+  res.end();
+});
+
 app.listen(2000);
 
 function writeJSON(res, data) {
