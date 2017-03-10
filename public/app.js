@@ -33,16 +33,34 @@ function formatBlank(todo) {
   todo.find(".done").hide();
 }
 
+function formatNew(todo, id) {
+  todo.attr("id", id);
+  todo.find(".done").show();
+}
+
 function saveTodo(todo) {
   todo.attr("id") ? updateTodo(todo) : createTodo(todo);
 }
 
 function createTodo(todo) {
-  console.log("create me!");
+  let description = todo.find(".description").val();
+  $.post("/todos/create", { description: description }, data => {
+    formatNew(todo, data.id);
+    flashSuccess(todo);
+    renderTodo();
+  });
 }
+
 function updateTodo(todo) {
   console.log("update me!");
 }
+
 function deleteTodo(todo) {
   console.log("delete me!");
+}
+
+function flashSuccess(todo) {
+  let saveTag = todo.find(".save");
+  saveTag.html("success!");
+  setTimeout(() => saveTag.html("save"), 1000);
 }
